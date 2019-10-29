@@ -1,9 +1,9 @@
-(* module type ReadLine = sig
+module type ReadLine = sig
   val read :  ?trim_delim:bool -> ?brackets:(char * char) list ->
-              ?prompt:string -> string -> (string * int) list -> string
-end *)
+              ?prompt:string -> ?strings:char list -> string -> string
+end
 
-module ReadLine = struct
+module ReadLine : ReadLine = struct
   let _trim_delim = ref false
   let _prompt = ref ">"
 
@@ -57,13 +57,13 @@ module ReadLine = struct
       let opened = (List.assoc o env) + (_count_char o s) in
       let closed = (List.assoc c env) + (_count_char c s) in
       let isOpen = opened - closed != 0 in
-      print_string @@ "Any Open: (";
+      (* print_string @@ "Any Open: (";
       print_char o;
       print_string ", ";
       print_char c;
       print_string @@ "): " ^ string_of_bool isOpen;
       print_endline @@ "\nOpen: " ^ string_of_int opened;
-      print_endline @@ "Closed: " ^ string_of_int closed ^ "\n";
+      print_endline @@ "Closed: " ^ string_of_int closed ^ "\n"; *)
       isOpen, [(o, opened); (c, closed)]
     ) brackets in
     List.exists _is_true isOpen, List.concat env'
