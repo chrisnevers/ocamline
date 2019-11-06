@@ -1,0 +1,6 @@
+(library
+ (name test_ocamline)
+ (libraries
+    alcotest
+    ocamline)
+  (synopsis "Tests for ocamline"))
