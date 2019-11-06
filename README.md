@@ -10,11 +10,11 @@ brackets. Any brackets that are opened must be closed before input is accepted.
 
 ## Example
 
-`[Source.ml]`
+`Source Code`
 ```ocaml
 read ~brackets:['(',')'] ~prompt:"prompt>" ""
 ```
-`[Command Line]`
+`Command Line`
 ```
 prompt> (lambda
           (x)
@@ -33,17 +33,13 @@ val read :  ?trim_delim:bool ->
             delim:string ->
             string
 ```
-`trim_delim`: Whether or not to remove the line delimiter from the
-return value.
-
-`brackets`: Any characters that once opened must be closed before the line is
-accepted.
-
-`prompt`: Customizes the prompt displayed to the user.
-
-`strings`: WIP. If brackets are in strings, they won't have to be closed.
-
-`delim`: The string that, when found, halts scanning and returns the input.
+|Parameter|Description|
+|---|---|
+|`trim_delim`|Whether or not to remove the line delimiter from the return value.|
+|`brackets`| Any characters that once opened must be closed before the line is accepted|
+|`prompt`| Customizes the prompt displayed to the user.|
+|`strings`| If brackets are in strings, they won't have to be closed.|
+|`delim`| The string that, when found, halts scanning and returns the input.|
 
 # Contributions
 
