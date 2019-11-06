@@ -1,4 +1,4 @@
-# ocamline
+# <p align="center"><img alt="ocamline" src="assets/ocamline.png" width = 45% /></p>
 
 This library provides a simple interface for reading user input
 in OCaml programs. The goal of this project is to reduce the
