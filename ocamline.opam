@@ -9,7 +9,6 @@ synopsis: "Command line interface for user input"
 build: [
   ["dune" "subst"] {pinned}
   ["dune" "build" "-p" name "-j" jobs]
-  ["dune" "runtest"] {with-test}
 ]
 
 depends: [
