@@ -10,11 +10,11 @@ brackets. Any brackets that are opened must be closed before input is accepted.
 
 ## Example
 
-`Source Code`
+#### Source Code:
 ```ocaml
 read ~brackets:['(',')'] ~prompt:"prompt>" ""
 ```
-`Command Line`
+#### Command Line:
 ```
 prompt> (lambda
           (x)
