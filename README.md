@@ -38,7 +38,7 @@ val read :  ?trim_delim:bool ->
 |`trim_delim`|Whether or not to remove the line delimiter from the return value.|
 |`brackets`| Any characters that once opened must be closed before the line is accepted|
 |`prompt`| Customizes the prompt displayed to the user.|
-|`strings`| If brackets are in strings, they won't have to be closed.|
+|`strings`| String delimiters. If brackets are in strings, they won't have to be closed.|
 |`delim`| The string that, when found, halts scanning and returns the input.|
 
 # Contributions
