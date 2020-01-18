@@ -29,7 +29,7 @@ let _ends_with s d ds =
       let b = d.[ds - i] in
       a = b && aux (i - 1)
     | _ -> true in
-  aux ds
+  if ss = 0 || ss < ds then false else aux ds
 
 (* Counts how many time a character appears in a string *)
 let _count_char c strings str =
