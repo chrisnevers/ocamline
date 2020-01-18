@@ -12,6 +12,7 @@ build: [
 ]
 
 depends: [
-  "dune" {build}
+  "ocaml"
+  "dune" {>= 1.9}
   "alcotest" {with-test}
 ]
