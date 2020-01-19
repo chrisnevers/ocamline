@@ -130,20 +130,23 @@ let rec read_input prompt delim ds brackets strings env =
   [init history_loc] initializes the Linenoise utility. Stores the history
   of user commands to [history_loc]
  *)
-let init history_loc =
+let init history_loc hints_callback completion_callback =
   _history_loc := history_loc;
   LNoise.history_load ~filename:history_loc |> ignore;
   LNoise.history_set ~max_length:100 |> ignore;
+  LNoise.set_hints_callback hints_callback;
+  LNoise.set_completion_callback completion_callback;
   _init := true
 
 (* We've seen 0 of each bracket so far *)
 let default_env b = List.concat @@ List.map (fun (o, c) -> [o, 0; c, 0]) b
 
 (*
-  [read ?trim_delim ?brackets ?prompt ?history_loc ?delim ()] will read input from
-  stdin until a new line or [delim] string is encountered. Occurrences of
-  [delim] not at the end of the line will not stop the input process. The
-  history of the user's commands will be saved to history_loc by Linenoise.
+  [read ?trim_delim ?brackets ?prompt ?history_loc ?delim ?hints_callback ?completion_callback  ()]
+  will read input from stdin until a new line or [delim] string is encountered.
+  Occurrences of [delim] not at the end of the line will not stop the input
+  process. The history of the user's commands will be saved to history_loc by
+  Linenoise.
 
   If [delim] is an empty string, it will return on new lines.
   *)
@@ -153,11 +156,13 @@ let read
     ?(prompt=">")
     ?(strings=[])
     ?(history_loc=".ocamline_history.txt")
+    ?(hints_callback=(fun _ -> None))
+    ?(completion_callback=(fun _ _ -> ()))
     ?(delim="")
     ()
 =
   (* Initialize the Linenoise library *)
-  if not !_init then init history_loc;
+  if not !_init then init history_loc hints_callback completion_callback;
   (* Get length of delimiter string *)
   let ds = String.length delim in
   (* Store info as references for efficiency *)

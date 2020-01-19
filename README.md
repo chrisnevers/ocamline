@@ -33,6 +33,8 @@ val read :  ?trim_delim:bool ->
             ?prompt:string ->
             ?strings:char list ->
             ?history_loc:string ->
+            ?hints_callback:(string -> (string * LNoise.hint_color * bool) option) ->
+            ?completion_callback:(string -> LNoise.completions -> unit) ->
             ?delim:string ->
             unit ->
             string
@@ -44,6 +46,8 @@ val read :  ?trim_delim:bool ->
 |`prompt`| Customizes the prompt displayed to the user.|`">"`|
 |`strings`| String delimiters. If brackets are in strings, they won't have to be closed.|`[]`|
 |`history_loc`|Where to store the history for the user commands|`".ocamline_history.txt"`|
+|`hints_callback`|Linenoise's hints callback. See [here](http://ocaml-community.github.io/ocaml-linenoise/1.3/linenoise/LNoise/index.html#val-set_hints_callback)|No op|
+|`completion_callback`|Linenoise's completion callback. See [here](http://ocaml-community.github.io/ocaml-linenoise/1.3/linenoise/LNoise/index.html#val-set_completion_callback)|No op|
 |`delim`| The string that, when found, halts scanning and returns the input.|`"" (* newlines *)`|
 
 # Contributions
