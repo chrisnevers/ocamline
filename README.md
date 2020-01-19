@@ -34,6 +34,8 @@ val read :  ?trim_delim:bool ->
             ?strings:char list ->
             ?history_loc:string ->
             ?delim:string ->
+            ?quit_string:string ->
+            ?help_string:string
             unit ->
             string
 ```
@@ -45,6 +47,8 @@ val read :  ?trim_delim:bool ->
 |`strings`| String delimiters. If brackets are in strings, they won't have to be closed.|`[]`|
 |`history_loc`|Where to store the history for the user commands|`".ocamline_history.txt"`|
 |`delim`| The string that, when found, halts scanning and returns the input.|`"" (* newlines *)`|
+|`quit_string`| The string that, when found exits the process with an exit code of 0.|`",quit"`|
+|`help_string`| The string that, when found exits the process with an exit code of 0.|`",help"`|
 
 # Contributions
 

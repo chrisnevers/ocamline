@@ -38,5 +38,7 @@ val read :
   ?strings:char list ->
   ?history_loc:string ->
   ?delim:string ->
+  ?quit_string:string -> 
+  ?help_string:string ->
   unit ->
   string

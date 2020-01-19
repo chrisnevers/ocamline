@@ -85,29 +85,29 @@ let get_final_line str delim_length =
   | true  -> sub str 0 (length str - delim_length)
   | false -> str
 
-let usage () =
+let usage quit_string help_string  =
   print_endline @@ String.concat "\n" @@ [
-    "  quit : Quit the REPL";
-    "  help : Show the help menu"
+    "  " ^ quit_string ^ " : Quit the REPL";
+    "  " ^ help_string ^ " : Show the help menu"
   ]
 
 (* This will be executed after every line read *)
-let lnoise_callback from_user =
-    if from_user = "quit" then exit 0;
-    if from_user = "help" then usage ();
+let lnoise_callback from_user quit_string help_string =
+    if from_user = quit_string then exit 0;
+    if from_user = help_string then usage quit_string help_string;
     LNoise.history_add from_user |> ignore;
     LNoise.history_save ~filename:!_history_loc |> ignore;
     (* If user asked for help, do not try to parse help as input  *)
-    from_user <> "help"
+    from_user <> help_string
 
-let rec read_input prompt delim ds brackets strings env =
+let rec read_input prompt delim ds brackets strings env quit_string help_string =
   (* Read a line from stdin and add it to user history *)
   let s = match LNoise.linenoise prompt with
     | None -> ""
-    | Some s -> if lnoise_callback s then s else ""
+    | Some s -> if lnoise_callback s quit_string help_string then s else ""
   in
   match s = "" with
-  | true -> read_input prompt delim ds brackets strings env
+  | true -> read_input prompt delim ds brackets strings env quit_string help_string
   | false ->
     (* Store it as a char array *)
     let x = explode s in
@@ -124,7 +124,7 @@ let rec read_input prompt delim ds brackets strings env =
       *)
       let prompt = spaces (String.length !_prompt) in
       (* append current input to future input *)
-      s ^ "\n" ^ read_input prompt delim ds brackets strings env'
+      s ^ "\n" ^ read_input prompt delim ds brackets strings env' quit_string help_string
 
 (*
   [init history_loc] initializes the Linenoise utility. Stores the history
@@ -154,6 +154,8 @@ let read
     ?(strings=[])
     ?(history_loc=".ocamline_history.txt")
     ?(delim="")
+    ?(quit_string=",quit")
+    ?(help_string=",help")
     ()
 =
   (* Initialize the Linenoise library *)
@@ -166,4 +168,4 @@ let read
   (* Initial environment *)
   let env = default_env brackets in
   (* Do work! *)
-  read_input !_prompt delim ds brackets strings env
+  read_input !_prompt delim ds brackets strings env quit_string help_string
