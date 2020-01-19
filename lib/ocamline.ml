@@ -85,26 +85,17 @@ let get_final_line str delim_length =
   | true  -> sub str 0 (length str - delim_length)
   | false -> str
 
-let usage () =
-  print_endline @@ String.concat "\n" @@ [
-    "  quit : Quit the REPL";
-    "  help : Show the help menu"
-  ]
-
 (* This will be executed after every line read *)
 let lnoise_callback from_user =
-    if from_user = "quit" then exit 0;
-    if from_user = "help" then usage ();
     LNoise.history_add from_user |> ignore;
     LNoise.history_save ~filename:!_history_loc |> ignore;
-    (* If user asked for help, do not try to parse help as input  *)
-    from_user <> "help"
+    from_user
 
 let rec read_input prompt delim ds brackets strings env =
   (* Read a line from stdin and add it to user history *)
   let s = match LNoise.linenoise prompt with
     | None   -> exit 0
-    | Some s -> if lnoise_callback s then s else ""
+    | Some s -> lnoise_callback s
   in
   match s = "" with
   | true -> read_input prompt delim ds brackets strings env
