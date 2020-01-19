@@ -13,6 +13,7 @@ build: [
 
 depends: [
   "ocaml"
-  "dune" {>= 1.9}
+  "dune" { >= "1.9" }
+  "linenoise"
   "alcotest" {with-test}
 ]

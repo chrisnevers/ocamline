@@ -1,4 +1,5 @@
 (library
- (name ocamline)
- (public_name ocamline)
- (synopsis "Command line interface for user input"))
+  (name ocamline)
+  (public_name ocamline)
+  (libraries linenoise)
+  (synopsis "Command line interface for user input"))
