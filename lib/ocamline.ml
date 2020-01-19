@@ -162,7 +162,7 @@ let read
     ()
 =
   (* Initialize the Linenoise library *)
-  if not !_init then init history_loc hints_callback completion_callback;
+  init history_loc hints_callback completion_callback;
   (* Get length of delimiter string *)
   let ds = String.length delim in
   (* Store info as references for efficiency *)
