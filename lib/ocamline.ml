@@ -103,7 +103,7 @@ let lnoise_callback from_user =
 let rec read_input prompt delim ds brackets strings env =
   (* Read a line from stdin and add it to user history *)
   let s = match LNoise.linenoise prompt with
-    | None -> ""
+    | None   -> exit 0
     | Some s -> if lnoise_callback s then s else ""
   in
   match s = "" with

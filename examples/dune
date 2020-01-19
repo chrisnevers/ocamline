@@ -1,0 +1,3 @@
+(executable
+  (name read)
+  (libraries ocamline))
